@@ -1,0 +1,8 @@
+{
+  "strava":{
+    "endpoint":"https://www.strava.com/api/v3",
+    "client_id":"123",
+    "client_secret":"1234567890qwerty",
+    "access_token":"1234567890qwerty"
+  }
+}
