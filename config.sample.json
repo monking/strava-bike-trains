@@ -1,8 +1,11 @@
 {
   "strava":{
     "endpoint":"https://www.strava.com/api/v3",
+    "auth_uri":"https://www.strava.com/oauth/authorize",
+    "redirect_uri":"http://www.myapp.com/token_exchange",
+    "scope":"public",
     "client_id":"123",
-    "client_secret":"1234567890qwerty",
-    "access_token":"1234567890qwerty"
+    "client_secret":"abc123",
+    "access_token":"abc123"
   }
 }

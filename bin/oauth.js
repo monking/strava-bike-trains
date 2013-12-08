@@ -9,10 +9,11 @@
       this.options = {};
       if (typeof defaults === "undefined" || defaults === null) {
         defaults = {
-          endpoint: "https://www.strava.com/api/v3",
-          client_id: "123",
-          client_secret: "1234567890qwerty",
-          access_token: "1234567890qwerty"
+          endpoint: "",
+          auth_uri: "",
+          client_id: "",
+          client_secret: "",
+          redirect_uri: ""
         };
       }
       for (key in defaults) {
@@ -51,6 +52,43 @@
         });
       });
       return request.end();
+    };
+
+    OAuth.prototype.authenticate = function() {
+      var defaults, key, oldCallback, value, _results;
+      defaults = {
+        resource: this.options.auth_uri,
+        query: {
+          client_id: this.options.client_id,
+          redirect_uri: this.options.redirect_uri,
+          response_type: 'code',
+          scope: this.options.scope
+        }
+      };
+      oldCallback = options.callback;
+      options.callback = function(body) {
+        return oldCallback != null ? oldCallback.apply(this, [body]) : void 0;
+      };
+      _results = [];
+      for (key in defaults) {
+        value = defaults[key];
+        if (options[key] == null) {
+          _results.push(options[key] = value);
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    OAuth.prototype.getToken = function(code) {
+      return this.request({
+        resource: this.options.auth_path,
+        response_type: 'token',
+        callback: function(auth_token) {
+          this.auth_token = auth_token;
+        }
+      });
     };
 
     return OAuth;
